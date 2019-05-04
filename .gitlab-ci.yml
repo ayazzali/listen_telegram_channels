@@ -17,7 +17,7 @@ deploy:
     # -e LKEY=$CI_LOG_BACK_TG_ID is optional
     # -e Test1=$CI_pub_test -e Test2=$CI_prv_test is just for me (test gitlab vars)
     - docker run  --name ttsTg --restart unless-stopped  -d -e Test1=$CI_pub_test -e Test2=$CI_prv_test -e _telegramKey=$_telegramKey -e _ttsToWhom=$_ttsToWhom -e _phone=$_phone -e _logBack=$_logBack -e _YaTtsKey=$_YaTtsKey tts_channels_telegram
-    # - docker logs ttsTg # keys might be
+    - docker logs ttsTg # keys might be
     - sleep 1m || timeout 60
     - docker ps -a
   only:
