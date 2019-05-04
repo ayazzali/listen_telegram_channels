@@ -19,4 +19,4 @@ ENTRYPOINT  echo $CI_pub_test $CI_prv_test qqq $Test1 $Test2 \
 && sed -i 's/_phone/'$_phone'/g' cfg.json \
 && sed -i 's/_logBack/'$_logBack'/g' cfg.json \
 && sed -i 's/_YaTtsKey/'$_YaTtsKey'/g' cfg.json \
-&& dotnet  TelegramClient.dll
+#&& dotnet  TelegramClient.dll
