@@ -137,13 +137,26 @@ namespace Core
                                 if (m.Message is TMessage mm)
                                 {
                                     logger.l(mm.Message);
+                                    var channelName = "";
+                                    if (updates.Chats.Count == 1)
+                                    {
+                                        var t = updates.Chats[0].As<TChannel>();
+                                        if (t != null)
+                                        {
+                                            channelName = t.Title;
+                                        }
+                                        var tt = updates.Chats[0].As<TUser>();
+                                    }
+                                    else if (updates.Chats.Count > 1)
+                                        logger.l("updates.Chats.Count=" + updates.Chats.Count);
+
                                     var msg = Helper.DeleteUrls(mm.Message);
                                     var YaTtsKey = config["YaTtsKey"];
                                     var url = $"https://tts.voicetech.yandex.net/generate?text={msg}&format=mp3&lang=ru-RU&speaker=jane&emotion=good&key={YaTtsKey}";
                                     try
                                     {
                                         var st = await httpClient.GetStreamAsync(url);
-                                        var r = await bot.SendVoiceAsync(config["ttsToWhom"], new Telegram.Bot.Types.FileToSend(mm.PostAuthor ?? "news", st));
+                                        var r = await bot.SendVoiceAsync(config["ttsToWhom"], new Telegram.Bot.Types.FileToSend(channelName, st), channelName);
                                     }
                                     catch (Exception e)
                                     {
