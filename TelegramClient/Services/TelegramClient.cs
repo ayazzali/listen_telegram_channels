@@ -15,6 +15,7 @@ using OpenTl.Schema.Channels;
 using OpenTl.Schema.Messages;
 using OpenTl.Schema.Updates;
 using Telegram.Bot;
+using TelegramClient.Services.Utils;
 using TelegramClient.Utils;
 
 namespace Core
@@ -136,8 +137,9 @@ namespace Core
                                 if (m.Message is TMessage mm)
                                 {
                                     logger.l(mm.Message);
+                                    var msg = Helper.DeleteUrls(mm.Message);
                                     var YaTtsKey = config["YaTtsKey"];
-                                    var url = $"https://tts.voicetech.yandex.net/generate?text={mm.Message}&format=mp3&lang=ru-RU&speaker=jane&emotion=good&key={YaTtsKey}";
+                                    var url = $"https://tts.voicetech.yandex.net/generate?text={msg}&format=mp3&lang=ru-RU&speaker=jane&emotion=good&key={YaTtsKey}";
                                     try
                                     {
                                         var st = await httpClient.GetStreamAsync(url);
