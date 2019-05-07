@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Core.Services;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,11 +16,11 @@ namespace convert_audio_message_to_text__bot.Services
         TelegramBotClient bot { get; set; }
         string logBackTgId = "";
         readonly ILogger<TgLog> logger;
-        public TgLog(TelegramBotProvider bp, Settings s, ILoggerFactory loggerFactory)
+        public TgLog(TelegramBotProvider bp, Config  s,ILogger<TgLog> logger)
         {
-            logger = loggerFactory.CreateLogger<TgLog>(); // 
+            this.logger = logger;
             bot = bp.bot;
-            logBackTgId = s.cfg["logBack"];
+            logBackTgId = s["logBack"];
             if (string.IsNullOrWhiteSpace(logBackTgId))
                 Console.WriteLine("WARN: logs will not be sent to your telegram chat");
             else

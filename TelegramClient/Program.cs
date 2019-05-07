@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using convert_audio_message_to_text__bot;
 using convert_audio_message_to_text__bot.Services;
+using Microsoft.Extensions.Configuration;
 
 namespace Core
 {
@@ -18,8 +19,7 @@ namespace Core
             {
                 Console.WriteLine();
                 Console.WriteLine(r.ExceptionObject);
-                Thread.Sleep(2000);
-                //log.LogError("", r);
+                Thread.Sleep(2000);//log.LogError("", r);
             });
 
             var rootPath = System.IO.Path.GetPathRoot(AppContext.BaseDirectory);
@@ -27,13 +27,16 @@ namespace Core
             System.IO.Directory.CreateDirectory(logDir);
             var logPath = System.IO.Path.Combine(logDir, "app.log");
 
+            IConfiguration configuration = new ConfigurationBuilder()
+                .AddJsonFile("cfg.json")
+                .Build();
+
             var serv = new ServiceCollection()
+                .AddSingleton(configuration)
+
                 .AddLogging(loggingBuilder => loggingBuilder
-                    //.AddFile(logPath, append: true)
                     .AddConsole())
-                //.ConfigureLogging()
                 .AddSingleton<Config>()
-                .AddSingleton<Settings>()
                 .AddSingleton<TelegramBotProvider>()
                 .AddSingleton<TgLog>()
                 .AddSingleton<TelegramBotForAuth>()
@@ -42,13 +45,14 @@ namespace Core
 
             var my = serv.GetService<TelegramClient>();
             my.Run();
-            //var t = Task.Run( () =>  InstanceOfBot.Auth());
-            //t.Wait();
-            //if (t.Exception != null)
-            //{
-            //    Console.WriteLine(t.Exception?.Message);
-            //    Thread.Sleep(5000);
-            //}
+
+            //.AddFile(logPath, append: true)
+            //.Configure<LoggerFilterOptions>(_=>_.MinLevel=LogLevel.Trace)
+            // dotnet add package Microsoft.Extensions.Configuration.EnvironmentVariables
+            //.AddEnvironmentVariables()
+
+            //var logger = serv.GetService<ILogger<Object>>();
+            //logger.LogInformation("234234");
 
             //Thread.Sleep(Timeout.Infinite);
         }
