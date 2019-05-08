@@ -3,5 +3,6 @@
   "ttsToWhom": "_ttsToWhom",
   "phone": "_phone",
   "logBack": "_logBack",
-  "YaTtsKey": "_YaTtsKey"
+  "YaTtsKey": "_YaTtsKey",
+  "channelFilter": "_channelFilter"
 }

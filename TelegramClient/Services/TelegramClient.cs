@@ -121,9 +121,12 @@ namespace Core
             }
         }
 
+        public event OpenTl.ClientApi.Services.Interfaces.AutoUpdateHandler AutoReceiveUpdates;
+
         HttpClient httpClient = new HttpClient();
         void SubscribeOnMessage()
         {
+            clientApi.UpdatesService.AutoReceiveUpdates += AutoReceiveUpdates;
             clientApi.UpdatesService.AutoReceiveUpdates += async update =>
             {
                 // handle updates
