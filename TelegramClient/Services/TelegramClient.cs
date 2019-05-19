@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading;
@@ -22,7 +23,7 @@ namespace Core
 {
     public class TelegramClient
     {
-        IClientApi clientApi;
+        public IClientApi clientApi;
 
         public void Run()
         {
@@ -42,6 +43,7 @@ namespace Core
         Config config;
         TelegramBotClient bot;
         private TgLog logger;
+        public event Action OnLoad;
 
         public TelegramClient(TelegramBotProvider telegramBot, TelegramBotForAuth botForAuth, Config config, TgLog tgLog)
         {
@@ -64,6 +66,7 @@ namespace Core
             //SubscribeOnMessage3();
             clientApi.KeepAliveConnection();
             logger.l("Started!");
+            OnLoad();
         }
 
         async Task<IClientApi> createClientApi()
@@ -121,9 +124,12 @@ namespace Core
             }
         }
 
+        public event OpenTl.ClientApi.Services.Interfaces.AutoUpdateHandler AutoReceiveUpdates;
+        
         HttpClient httpClient = new HttpClient();
         void SubscribeOnMessage()
         {
+            clientApi.UpdatesService.AutoReceiveUpdates += AutoReceiveUpdates;
             clientApi.UpdatesService.AutoReceiveUpdates += async update =>
             {
                 // handle updates
