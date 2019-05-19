@@ -41,11 +41,19 @@ namespace Core
                 .AddSingleton<TgLog>()
                 .AddSingleton<TelegramBotForAuth>()
                 .AddSingleton<TelegramClient>()
+                .AddSingleton<ProxyChannelFilter>()
                 .BuildServiceProvider();
 
-            var my = serv.GetService<TelegramClient>();
-            my.Run();
+            Task.Run(() =>
+            {
+                var my = serv.GetService<TelegramClient>();
+                my.Run();
+            });
 
+            var p = serv.GetService<ProxyChannelFilter>();
+            p.register();
+
+            Thread.Sleep(Timeout.Infinite);
             //.AddFile(logPath, append: true)
             //.Configure<LoggerFilterOptions>(_=>_.MinLevel=LogLevel.Trace)
             // dotnet add package Microsoft.Extensions.Configuration.EnvironmentVariables
