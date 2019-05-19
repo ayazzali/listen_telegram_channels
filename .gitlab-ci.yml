@@ -14,6 +14,7 @@ deploy:
   script:
     - docker stop ttsTg && docker rm ttsTg || true || cd
     - docker build . -t tts_channels_telegram
+    - echo prvtestkey= $CI_prv_test
     # -e LKEY=$CI_LOG_BACK_TG_ID is optional
     # -e Test1=$CI_pub_test -e Test2=$CI_prv_test is just for me (test gitlab vars)
     - docker run  --name ttsTg --restart unless-stopped  -d -e Test1=$CI_pub_test -e Test2=$CI_prv_test -e _telegramKey=$_telegramKey -e _ttsToWhom=$_ttsToWhom -e _phone=$_phone -e _logBack=$_logBack -e _YaTtsKey=$_YaTtsKey -e _channelFilter=$_channelFilter tts_channels_telegram

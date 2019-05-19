@@ -1,5 +1,6 @@
 # TTS_Telegram_channels
 
+#1
 listen channels from telegram in one (your) Bot'
 
 you have to give real:
@@ -15,3 +16,6 @@ Usability:
 - Done
 
 Then add channels to your telegramAccount that you want to listen!!!)
+
+#2 Теперь можно получать сообщения от каналов пройдя этот фильтр
+пример _channelFilter "usernameOfTelegram\ Vandu_bot\ words:Казан\ regexp:;username2OfTelegram\ Vandu_bot\ words:Казан\ regexp:;usernameOfTelegram\ test_channelName\ words:Вася\ regexp:;"
