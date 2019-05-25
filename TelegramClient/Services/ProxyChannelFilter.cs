@@ -1,4 +1,4 @@
-﻿using convert_audio_message_to_text__bot.Services;
+﻿using camtt.Services;
 using Core.Services;
 using Microsoft.Extensions.Logging;
 using OpenTl.Schema;
@@ -46,7 +46,7 @@ namespace Core
             {
                 try
                 {
-                    var f = ChannelFilter.Parse(fi);
+                    var f = ChannelFilter.Parse(fi); logger.l(f.ToString());
                     channelFilters.Add(f);
                 }
                 catch (Exception ex)
@@ -97,8 +97,8 @@ namespace Core
                                                 foreach (var fi in match)
                                                     if (fi.Words.Any(w => msg.Contains(w.ToLower())))
                                                         bot.SendTextMessageAsync(fi.User_proxyToWhom.Id, mm.Message);
-                                            //else if (fi.Regexp)
-                                        }
+                                                //else if (fi.Regexp)
+                                            }
                                         }
                                     }
                                     {
@@ -116,8 +116,8 @@ namespace Core
                                                         // forward
                                                     }
                                                 }
-                                            //else if (fi.Regexp)
-                                        }
+                                                //else if (fi.Regexp)
+                                            }
                                         }
                                     }
                                 }
@@ -171,10 +171,14 @@ namespace Core
         // TODO
         public string Regexp;
 
+        string _raw;
+        public override string ToString() => $"{_raw}";
+
         public static ChannelFilter Parse(string oneChannelFilterFromConfig)
         {
             var f = new ChannelFilter();
-            var fs = oneChannelFilterFromConfig.Split(' ',StringSplitOptions.RemoveEmptyEntries);
+            f._raw = oneChannelFilterFromConfig;
+            var fs = oneChannelFilterFromConfig.Split(' ', StringSplitOptions.RemoveEmptyEntries);
             //f.ChatId 
             f.UserName_proxyToWhom = fs[0].Trim();
             f.Shortlink = fs[1].Trim();

@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Telegram.Bot;
 
-namespace convert_audio_message_to_text__bot.Services
+namespace camtt.Services
 {
     /// <summary>
     ///  в телегу пишет поставив в очередь (в 2сек)

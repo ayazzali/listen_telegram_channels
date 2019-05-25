@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading;
 using Telegram.Bot;
 
-namespace convert_audio_message_to_text__bot.Services
+namespace camtt.Services
 {
 
     using Settings = Config;

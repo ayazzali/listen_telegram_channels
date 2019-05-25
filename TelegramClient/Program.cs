@@ -4,8 +4,8 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using convert_audio_message_to_text__bot;
-using convert_audio_message_to_text__bot.Services;
+using camtt;
+using camtt.Services;
 using Microsoft.Extensions.Configuration;
 
 namespace Core

@@ -6,7 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using convert_audio_message_to_text__bot.Services;
+using camtt.Services;
 using Core.Services;
 using Newtonsoft.Json;
 using OpenTl.ClientApi;
