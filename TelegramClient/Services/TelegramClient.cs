@@ -125,7 +125,7 @@ namespace Core
         }
 
         public event OpenTl.ClientApi.Services.Interfaces.AutoUpdateHandler AutoReceiveUpdates;
-        
+
         HttpClient httpClient = new HttpClient();
         void SubscribeOnMessage()
         {
@@ -167,6 +167,7 @@ namespace Core
                                     catch (Exception e)
                                     {
                                         logger.l(e);
+                                        logger.l(mm.ToJson());
                                     }
                                 }
                             }

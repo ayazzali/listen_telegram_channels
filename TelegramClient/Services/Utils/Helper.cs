@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -23,6 +25,18 @@ namespace TelegramClient.Services.Utils
             }
 
             return str;
+        }
+    }
+
+    public static class ObjectExtension
+    {
+        public static string ToJson(this object obj)
+        {
+            return JsonConvert.SerializeObject(obj, new JsonSerializerSettings
+            {
+                ContractResolver = new CamelCasePropertyNamesContractResolver(),
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            });
         }
     }
 }
